@@ -2085,12 +2085,12 @@
 
   <script>
     // Ana değişkenler
-    let isAuthenticated = false;
+    var isAuthenticated = false;
     let currentTheme = localStorage.getItem('app_theme') || 'dark';
     let userProfile = JSON.parse(localStorage.getItem('user_profile') || '{}');
     let appLogo = localStorage.getItem('app_logo') || '';
     let notificationsEnabled = localStorage.getItem('notifications_enabled') === 'true';
-    let records = [];
+    var records = [];
     let currentRecordCount = 0;
     let selectedVehicleType = 'kamyon';
     let currentPhotoRecordId = null; // Kayıt ID'sine göre fotoğraf ekleme için
@@ -2140,7 +2140,7 @@
       }
     }
 
-    let allUsers = getAllUsers();
+    var allUsers = getAllUsers();
     let savedEmail = localStorage.getItem('user_email') || DEFAULT_EMAIL;
     let savedPassword = localStorage.getItem('user_password') || DEFAULT_PASSWORD;
     let currentUser = null;

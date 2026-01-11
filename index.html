@@ -908,14 +908,26 @@
 
       <!-- Kamyon Lastik Bilgileri -->
       <div id="kamyonTireInfo" class="form-card">
-        <h3 class="font-semibold text-xl mb-6" style="color: #3b82f6">🚛 KAMYON LASTİK BİLGİLERİ</h3>
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="font-semibold text-xl" style="color: #3b82f6">🚛 KAMYON LASTİK BİLGİLERİ</h3>
+          <div class="flex gap-2">
+            <button type="button" onclick="toggleAllDingils('kamyonTireInfo', true)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #3b82f6; border-radius: 8px;">Hepsini Aç</button>
+            <button type="button" onclick="toggleAllDingils('kamyonTireInfo', false)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #64748b; border-radius: 8px;">Hepsini
+              Kapat</button>
+          </div>
+        </div>
 
         <!-- ÖN DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border: 3px solid #3b82f6;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 8px;">📍 ÖN DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #3b82f6; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #3b82f6; margin-bottom: 0;">📍 ÖN DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- Sol Ön -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1006,9 +1018,12 @@
         <!-- ORTA DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1)); border: 3px solid #f59e0b;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px;">⚙️ ORTA DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #f59e0b; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #f59e0b; margin-bottom: 0;">⚙️ ORTA DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- Sol Orta Dış -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1183,9 +1198,12 @@
         <!-- ARKA DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1)); border: 3px solid #8b5cf6;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #8b5cf6; border-bottom: 2px solid #8b5cf6; padding-bottom: 8px;">🔧 ARKA DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #8b5cf6; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #8b5cf6; margin-bottom: 0;">🔧 ARKA DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- Sol Arka Dış -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1360,14 +1378,26 @@
 
       <!-- Çekici Lastik Bilgileri -->
       <div id="cekiciTireInfo" class="form-card" style="display: none;">
-        <h3 class="font-semibold text-xl mb-6" style="color: #3b82f6">🚚 ÇEKİCİ LASTİK BİLGİLERİ</h3>
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="font-semibold text-xl" style="color: #3b82f6">🚚 ÇEKİCİ LASTİK BİLGİLERİ</h3>
+          <div class="flex gap-2">
+            <button type="button" onclick="toggleAllDingils('cekiciTireInfo', true)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #3b82f6; border-radius: 8px;">Hepsini Aç</button>
+            <button type="button" onclick="toggleAllDingils('cekiciTireInfo', false)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #64748b; border-radius: 8px;">Hepsini
+              Kapat</button>
+          </div>
+        </div>
 
         <!-- ÖN DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border: 3px solid #3b82f6;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 8px;">📍 ÖN DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #3b82f6; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #3b82f6; margin-bottom: 0;">📍 ÖN DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- Sol Ön -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1376,12 +1406,15 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_on', 'yeni')"
-                      id="cekici_sol_on_yeni" class="btn-primary flex-1"
-                      style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_on', 'cikma')"
-                      id="cekici_sol_on_cikma" class="btn-primary flex-1"
-                      style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
+                    <button type="button" onclick="selectTireStatus('cekici_sol_on', 'yeni')" id="cekici_sol_on_yeni"
+                      class="btn-primary flex-1"
+                      style="padding: 8px; font-size: 9px; background: #64748b;">YENİ</button>
+                    <button type="button" onclick="selectTireStatus('cekici_sol_on', 'kaplama')"
+                      id="cekici_sol_on_kaplama" class="btn-primary flex-1"
+                      style="padding: 8px; font-size: 9px; background: #64748b;">KAPLAMA</button>
+                    <button type="button" onclick="selectTireStatus('cekici_sol_on', 'cikma')" id="cekici_sol_on_cikma"
+                      class="btn-primary flex-1"
+                      style="padding: 8px; font-size: 9px; background: #64748b;">ÇIKMA</button>
                   </div>
                 </div>
                 <div><label class="form-label">Marka</label> <input type="text" id="cekici_sol_on_marka"
@@ -1406,11 +1439,11 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_on', 'yeni')"
-                      id="cekici_sag_on_yeni" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_on', 'yeni')" id="cekici_sag_on_yeni"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_on', 'cikma')"
-                      id="cekici_sag_on_cikma" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_on', 'cikma')" id="cekici_sag_on_cikma"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
                 </div>
@@ -1434,9 +1467,12 @@
         <!-- ÇEKER DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1)); border: 3px solid #f59e0b;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px;">⚙️ ÇEKER DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #f59e0b; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #f59e0b; margin-bottom: 0;">⚙️ ÇEKER DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- Sol Dış -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1445,10 +1481,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_dis', 'yeni')"
-                      id="cekici_sol_dis_yeni" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sol_dis', 'yeni')" id="cekici_sol_dis_yeni"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_dis', 'cikma')"
+                    <button type="button" onclick="selectTireStatus('cekici_sol_dis', 'cikma')"
                       id="cekici_sol_dis_cikma" class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1475,11 +1511,11 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_ic', 'yeni')"
-                      id="cekici_sol_ic_yeni" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sol_ic', 'yeni')" id="cekici_sol_ic_yeni"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sol_ic', 'cikma')"
-                      id="cekici_sol_ic_cikma" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sol_ic', 'cikma')" id="cekici_sol_ic_cikma"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
                 </div>
@@ -1505,11 +1541,11 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_ic', 'yeni')"
-                      id="cekici_sag_ic_yeni" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_ic', 'yeni')" id="cekici_sag_ic_yeni"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_ic', 'cikma')"
-                      id="cekici_sag_ic_cikma" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_ic', 'cikma')" id="cekici_sag_ic_cikma"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
                 </div>
@@ -1535,10 +1571,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_dis', 'yeni')"
-                      id="cekici_sag_dis_yeni" class="btn-primary flex-1"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_dis', 'yeni')" id="cekici_sag_dis_yeni"
+                      class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectCekiciTireStatus('cekici_sag_dis', 'cikma')"
+                    <button type="button" onclick="selectTireStatus('cekici_sag_dis', 'cikma')"
                       id="cekici_sag_dis_cikma" class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1563,14 +1599,26 @@
 
       <!-- Dorse Lastik Bilgileri -->
       <div id="dorseTireInfo" class="form-card" style="display: none;">
-        <h3 class="font-semibold text-xl mb-6" style="color: #8b5cf6">🚛 DORSE LASTİK BİLGİLERİ</h3>
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="font-semibold text-xl" style="color: #8b5cf6">🚛 DORSE LASTİK BİLGİLERİ</h3>
+          <div class="flex gap-2">
+            <button type="button" onclick="toggleAllDingils('dorseTireInfo', true)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #8b5cf6; border-radius: 8px;">Hepsini Aç</button>
+            <button type="button" onclick="toggleAllDingils('dorseTireInfo', false)" class="btn-primary"
+              style="padding: 6px 12px; font-size: 11px; background: #64748b; border-radius: 8px;">Hepsini
+              Kapat</button>
+          </div>
+        </div>
 
         <!-- 1. DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1)); border: 3px solid #8b5cf6;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #8b5cf6; border-bottom: 2px solid #8b5cf6; padding-bottom: 8px;">1️⃣ 1. DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #8b5cf6; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #8b5cf6; margin-bottom: 0;">1️⃣ 1. DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- 1. Dingil Sol -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1579,10 +1627,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_1_sol', 'yeni')" id="dorse_1_sol_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_1_sol', 'yeni')" id="dorse_1_sol_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_1_sol', 'cikma')" id="dorse_1_sol_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_1_sol', 'cikma')" id="dorse_1_sol_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1609,10 +1657,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_1_sag', 'yeni')" id="dorse_1_sag_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_1_sag', 'yeni')" id="dorse_1_sag_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_1_sag', 'cikma')" id="dorse_1_sag_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_1_sag', 'cikma')" id="dorse_1_sag_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1637,9 +1685,12 @@
         <!-- 2. DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border: 3px solid #3b82f6;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 8px;">2️⃣ 2. DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #3b82f6; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #3b82f6; margin-bottom: 0;">2️⃣ 2. DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- 2. Dingil Sol -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1648,10 +1699,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_2_sol', 'yeni')" id="dorse_2_sol_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_2_sol', 'yeni')" id="dorse_2_sol_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_2_sol', 'cikma')" id="dorse_2_sol_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_2_sol', 'cikma')" id="dorse_2_sol_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1678,10 +1729,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_2_sag', 'yeni')" id="dorse_2_sag_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_2_sag', 'yeni')" id="dorse_2_sag_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_2_sag', 'cikma')" id="dorse_2_sag_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_2_sag', 'cikma')" id="dorse_2_sag_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1706,9 +1757,12 @@
         <!-- 3. DİNGİL -->
         <div class="mb-8 p-5 rounded-xl"
           style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1)); border: 3px solid #f59e0b;">
-          <h4 class="font-bold text-lg mb-5"
-            style="color: #f59e0b; border-bottom: 2px solid #f59e0b; padding-bottom: 8px;">3️⃣ 3. DİNGİL</h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="flex justify-between items-center mb-5 cursor-pointer select-none"
+            style="border-bottom: 2px solid #f59e0b; padding-bottom: 8px;" onclick="toggleDingil(this)">
+            <h4 class="font-bold text-lg" style="color: #f59e0b; margin-bottom: 0;">3️⃣ 3. DİNGİL</h4>
+            <span class="toggle-icon text-xl">🔼</span>
+          </div>
+          <div class="dingil-content grid grid-cols-1 md:grid-cols-2 gap-5">
 
             <!-- 3. Dingil Sol -->
             <div class="p-4 rounded-lg" style="background: var(--bg-secondary); border: 2px solid #10b981;">
@@ -1717,10 +1771,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_3_sol', 'yeni')" id="dorse_3_sol_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_3_sol', 'yeni')" id="dorse_3_sol_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_3_sol', 'cikma')" id="dorse_3_sol_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_3_sol', 'cikma')" id="dorse_3_sol_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1747,10 +1801,10 @@
                 <div>
                   <label class="form-label">Durum</label>
                   <div class="flex gap-2">
-                    <button type="button" onclick="selectDorseTireStatus('dorse_3_sag', 'yeni')" id="dorse_3_sag_yeni"
+                    <button type="button" onclick="selectTireStatus('dorse_3_sag', 'yeni')" id="dorse_3_sag_yeni"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">YENİ</button>
-                    <button type="button" onclick="selectDorseTireStatus('dorse_3_sag', 'cikma')" id="dorse_3_sag_cikma"
+                    <button type="button" onclick="selectTireStatus('dorse_3_sag', 'cikma')" id="dorse_3_sag_cikma"
                       class="btn-primary flex-1"
                       style="padding: 8px; font-size: 12px; background: #64748b;">ÇIKMA</button>
                   </div>
@@ -1813,6 +1867,17 @@
         <span style="font-size: 32px">📋</span>
         <h2 class="section-title">Geçmiş Kayıtlar</h2>
       </div>
+
+      <!-- Excel & PDF Buttons for History -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button onclick="exportHistoryToExcel()" class="btn-primary flex items-center gap-2"
+          style="background: #10b981;">
+          <span>📊</span> Geçmiş Excel
+        </button>
+        <button onclick="exportHistoryToPDF()" class="btn-primary flex items-center gap-2" style="background: #ef4444;">
+          <span>📄</span> Geçmiş PDF
+        </button>
+      </div>
       <div id="historyList">
         <p style="color: var(--text-secondary); text-align: center; padding: 40px">Henüz kayıt yok</p>
       </div>
@@ -1823,6 +1888,16 @@
       <div class="section-header" style="border-bottom-color: #ef4444;">
         <span style="font-size: 32px">🗑️</span>
         <h2 class="section-title" style="color: #ef4444;">Çöp Kutusu (Son Silinenler)</h2>
+      </div>
+
+      <!-- Excel & PDF Buttons for Trash -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button onclick="exportTrashToExcel()" class="btn-primary flex items-center gap-2" style="background: #10b981;">
+          <span>📊</span> Çöp Kutusu Excel
+        </button>
+        <button onclick="exportTrashToPDF()" class="btn-primary flex items-center gap-2" style="background: #ef4444;">
+          <span>📄</span> Çöp Kutusu PDF
+        </button>
       </div>
 
       <div class="form-card mb-4 bg-red-50 border border-red-100">
@@ -2085,6 +2160,16 @@
         <span style="font-size: 32px">👥</span>
         <h2 class="section-title">Kullanıcı Yönetimi</h2>
       </div>
+
+      <!-- Excel & PDF Buttons for Users -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button onclick="exportUsersToExcel()" class="btn-primary flex items-center gap-2" style="background: #10b981;">
+          <span>📊</span> Kullanıcı Listesi Excel
+        </button>
+        <button onclick="exportUsersToPDF()" class="btn-primary flex items-center gap-2" style="background: #ef4444;">
+          <span>📄</span> Kullanıcı Listesi PDF
+        </button>
+      </div>
       <div class="form-card">
         <h3 class="font-semibold text-lg mb-4" style="color: var(--accent-orange)">➕ Yeni Kullanıcı Ekle</h3>
         <div class="space-y-4">
@@ -2254,6 +2339,154 @@
 
       doc.save('akkoc_genel_rapor.pdf');
       showToast('✅ Rapor PDF dosyası indiriliyor...', 'success');
+    }
+
+    // 3. USER LIST EXPORT
+    function exportUsersToExcel() {
+      if (allUsers.length === 0) { showToast('Dışa aktarılacak kullanıcı yok', 'error'); return; }
+
+      let csvContent = "\uFEFF"; // UTF-8 BOM
+      csvContent += "E-posta;Rol;Oluşturulma Tarihi\n";
+
+      allUsers.forEach(user => {
+        const date = user.created_at ? new Date(user.created_at).toLocaleDateString('tr-TR') : '-';
+        csvContent += `${user.email};${user.role || 'user'};${date}\n`;
+      });
+
+      downloadFile(csvContent, 'akkoc_kullanici_listesi.csv', 'text/csv;charset=utf-8');
+      showToast('✅ Kullanıcı listesi Excel (CSV) indiriliyor...', 'success');
+    }
+
+    function exportUsersToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(18);
+      doc.text("Akkoç Lojistik - Kayıtlı Kullanıcı Listesi", 14, 20);
+
+      const tableData = allUsers.map(user => [
+        user.email,
+        user.role || 'user',
+        user.created_at ? new Date(user.created_at).toLocaleDateString('tr-TR') : '-'
+      ]);
+
+      doc.autoTable({
+        startY: 30,
+        head: [['E-posta', 'Yetki/Rol', 'Kayıt Tarihi']],
+        body: tableData,
+        headStyles: { fillColor: [16, 185, 129] } // emerald-500
+      });
+
+      doc.save('akkoc_kullanici_listesi.pdf');
+      showToast('✅ Kullanıcı listesi PDF indiriliyor...', 'success');
+    }
+
+    // 4. HISTORY EXPORT
+    function exportHistoryToExcel() {
+      const isAdmin = (savedEmail === 'mustafa@akkoc');
+      let authorizedData = records;
+      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
+
+      if (authorizedData.length === 0) { showToast('Dışa aktarılacak geçmiş kayıt yok', 'error'); return; }
+
+      let csvContent = "\uFEFF"; // UTF-8 BOM
+      csvContent += "Plaka;Sürücü;Tip;Tarih;Tutar;Notlar\n";
+
+      const sortedData = [...authorizedData].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+      sortedData.forEach(r => {
+        const date = new Date(r.created_at).toLocaleString('tr-TR');
+        const type = r.arac_tipi === 'kamyon' ? 'Kamyon' : 'Çekici';
+        const price = r.toplam_fiyat || 0;
+        const note = (r.notlar || '').replace(/;/g, ',');
+        csvContent += `${r.plaka};${r.surucu_adi};${type};${date};${price} TL;${note}\n`;
+      });
+
+      downloadFile(csvContent, 'akkoc_gecmis_kayitlar.csv', 'text/csv;charset=utf-8');
+      showToast('✅ Geçmiş kayıtlar Excel (CSV) indiriliyor...', 'success');
+    }
+
+    function exportHistoryToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const isAdmin = (savedEmail === 'mustafa@akkoc');
+      let authorizedData = records;
+      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
+
+      doc.setFontSize(18);
+      doc.text("Akkoç Lojistik - Geçmiş İşlem Kayıtları", 14, 20);
+
+      const sortedData = [...authorizedData].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+      const tableData = sortedData.map(r => [
+        r.plaka,
+        r.surucu_adi,
+        r.arac_tipi === 'kamyon' ? 'Kamyon' : 'Çekici',
+        new Date(r.created_at).toLocaleDateString('tr-TR'),
+        (r.toplam_fiyat || 0).toLocaleString('tr-TR') + ' TL'
+      ]);
+
+      doc.autoTable({
+        startY: 30,
+        head: [['Plaka', 'Sürücü', 'Tip', 'Tarih', 'Tutar']],
+        body: tableData,
+        headStyles: { fillColor: [59, 130, 246] } // blue-500
+      });
+
+      doc.save('akkoc_gecmis_kayitlar.pdf');
+      showToast('✅ Geçmiş kayıtlar PDF indiriliyor...', 'success');
+    }
+
+    // 5. TRASH EXPORT
+    function exportTrashToExcel() {
+      let trashData = [];
+      try {
+        trashData = JSON.parse(localStorage.getItem('deleted_vehicle_records') || '[]');
+      } catch (e) { trashData = []; }
+
+      if (trashData.length === 0) { showToast('Çöp kutusu boş', 'error'); return; }
+
+      let csvContent = "\uFEFF"; // UTF-8 BOM
+      csvContent += "Plaka;Silinme Tarihi;Orijinal Kayıt Tarihi\n";
+
+      trashData.forEach(r => {
+        const delDate = r.deleted_at ? new Date(r.deleted_at).toLocaleString('tr-TR') : '-';
+        const origDate = r.created_at ? new Date(r.created_at).toLocaleString('tr-TR') : '-';
+        csvContent += `${r.plaka};${delDate};${origDate}\n`;
+      });
+
+      downloadFile(csvContent, 'akkoc_cop_kutusu.csv', 'text/csv;charset=utf-8');
+      showToast('✅ Çöp kutusu verileri Excel (CSV) indiriliyor...', 'success');
+    }
+
+    function exportTrashToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      let trashData = [];
+      try {
+        trashData = JSON.parse(localStorage.getItem('deleted_vehicle_records') || '[]');
+      } catch (e) { trashData = []; }
+
+      doc.setFontSize(18);
+      doc.text("Akkoç Lojistik - Çöp Kutusu (Silinenler)", 14, 20);
+
+      const tableData = trashData.map(r => [
+        r.plaka,
+        r.deleted_at ? new Date(r.deleted_at).toLocaleString('tr-TR') : '-',
+        r.arac_tipi === 'kamyon' ? 'Kamyon' : 'Çekici'
+      ]);
+
+      doc.autoTable({
+        startY: 30,
+        head: [['Plaka', 'Silinme Tarihi', 'Tip']],
+        body: tableData,
+        headStyles: { fillColor: [239, 68, 68] } // red-500
+      });
+
+      doc.save('akkoc_cop_kutusu.pdf');
+      showToast('✅ Çöp kutusu verileri PDF indiriliyor...', 'success');
     }
 
     // Başlat
@@ -2854,15 +3087,18 @@
 
       if (!yeniBtn || !cikmaBtn) return;
 
+      // Reset
+      yeniBtn.style.background = '#64748b';
+      cikmaBtn.style.background = '#64748b';
+      yeniBtn.dataset.active = 'false';
+      cikmaBtn.dataset.active = 'false';
+
       if (status === 'yeni') {
         yeniBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-        cikmaBtn.style.background = '#64748b';
+        yeniBtn.dataset.active = 'true';
       } else if (status === 'cikma') {
-        yeniBtn.style.background = '#64748b';
         cikmaBtn.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-      } else {
-        yeniBtn.style.background = '#64748b';
-        cikmaBtn.style.background = '#64748b';
+        cikmaBtn.dataset.active = 'true';
       }
     }
 
@@ -2870,16 +3106,36 @@
     function selectCekiciTireStatus(pos, stat) { updateTireStatusUI(pos, stat); }
     function selectDorseTireStatus(pos, stat) { updateTireStatusUI(pos, stat); }
 
+    function toggleDingil(header) {
+      const content = header.nextElementSibling;
+      const icon = header.querySelector('.toggle-icon');
+      if (content.style.display === 'none') {
+        content.style.display = 'grid';
+        if (icon) icon.textContent = '🔼';
+      } else {
+        content.style.display = 'none';
+        if (icon) icon.textContent = '🔽';
+      }
+    }
+
+    function toggleAllDingils(sectionId, show) {
+      const section = document.getElementById(sectionId);
+      const contents = section.querySelectorAll('.dingil-content');
+      const icons = section.querySelectorAll('.toggle-icon');
+      contents.forEach(content => {
+        content.style.display = show ? 'grid' : 'none';
+      });
+      icons.forEach(icon => {
+        icon.textContent = show ? '🔼' : '🔽';
+      });
+    }
+
     function getSelectedTireStatusValue(position) {
       const yeniBtn = document.getElementById(`${position}_yeni`);
-      if (!yeniBtn) return '';
-      const style = yeniBtn.style.background;
-      if (style.includes('10b981') || style.includes('059669')) return 'YENİ';
+      if (yeniBtn && yeniBtn.dataset.active === 'true') return 'YENİ';
 
       const cikmaBtn = document.getElementById(`${position}_cikma`);
-      if (!cikmaBtn) return '';
-      const cstyle = cikmaBtn.style.background;
-      if (cstyle.includes('f59e0b') || cstyle.includes('d97706')) return 'ÇIKMA';
+      if (cikmaBtn && cikmaBtn.dataset.active === 'true') return 'ÇIKMA';
 
       return '';
     }
@@ -3054,6 +3310,7 @@
       const buttons = section.querySelectorAll('button[id$="_yeni"], button[id$="_cikma"]');
       buttons.forEach(btn => {
         btn.style.background = '#64748b';
+        btn.dataset.active = 'false';
       });
 
       // İmza temizle
@@ -3584,16 +3841,40 @@
       // --- HTML OLUŞTURMA ---
       let html = `
           <div class="mb-6">
-            <div class="flex items-center gap-4 mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-transparent border-l-8 border-blue-500">
-              <span style="font-size: 56px">${lastRecord.arac_tipi === 'kamyon' ? '🚛' : '🚚'}</span>
-              <div class="flex-1">
-                <div class="text-4xl font-extrabold" style="color: var(--text-primary); letter-spacing: -1px;">${plaka}</div>
-                <div class="text-base font-bold uppercase tracking-wider" style="color: var(--accent-blue)">${lastRecord.arac_tipi === 'kamyon' ? 'KAMYON' : 'ÇEKİCİ + DORSE'}</div>
+            <div class="flex items-center gap-4 mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-transparent border-l-8 border-blue-500 shadow-sm relative overflow-hidden">
+              <div class="absolute right-0 top-0 h-full w-32 bg-gradient-to-l from-white/40 to-transparent pointer-events-none"></div>
+              <span style="font-size: 64px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))">${lastRecord.arac_tipi === 'kamyon' ? '🚛' : '🚚'}</span>
+              <div class="flex-1 z-10">
+                <div class="text-4xl font-extrabold flex flex-col sm:flex-row sm:items-baseline gap-2" style="color: var(--text-primary); letter-spacing: -1px;">
+                  ${plaka}
+                  <span class="text-lg font-medium text-gray-500 bg-white/60 px-3 py-1 rounded-full border border-gray-100 backdrop-blur-sm shadow-sm" style="font-family: monospace;">
+                    👤 ${lastRecord.surucu_adi}
+                  </span>
+                </div>
+                <div class="text-base font-bold uppercase tracking-wider mt-1 text-blue-600 bg-blue-50 inline-block px-2 py-0.5 rounded-md border border-blue-100 shadow-sm">
+                    ${lastRecord.arac_tipi === 'kamyon' ? 'KAMYON' : 'ÇEKİCİ + DORSE'}
+                </div>
               </div>
-              <div class="text-right bg-white/50 p-3 rounded-xl border border-blue-100 shadow-sm">
-                <div class="text-3xl font-black" style="color: var(--accent-orange)">${vehicleRecords.length}</div>
-                <div class="text-[10px] font-extrabold uppercase text-gray-500">Toplam Kayıt</div>
+              <div class="text-right bg-gradient-to-br from-white to-gray-50 p-4 rounded-xl border border-gray-200 shadow-lg flex flex-col items-center justify-center min-w-[100px] z-10">
+                <div class="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-red-500" style="color: var(--accent-orange)">${vehicleRecords.length}</div>
+                <div class="text-[9px] font-black uppercase text-gray-400 tracking-widest mt-1">Toplam Kayıt</div>
               </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="p-4 bg-orange-50 border-2 border-orange-100 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-orange-600 uppercase tracking-widest">Toplam Harcama</div>
+                        <div class="text-2xl font-black text-orange-900">${vehicleRecords.reduce((sum, r) => sum + (parseFloat(r.toplam_fiyat) || 0), 0).toLocaleString('tr-TR')} ₺</div>
+                    </div>
+                    <span class="text-3xl">💰</span>
+                </div>
+                <div class="p-4 bg-blue-50 border-2 border-blue-100 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Son İşlem Tarihi</div>
+                        <div class="text-2xl font-black text-blue-900">${new Date(lastRecord.created_at).toLocaleDateString('tr-TR')}</div>
+                    </div>
+                    <span class="text-3xl">📅</span>
+                </div>
             </div>
         </div>
         
@@ -3678,8 +3959,12 @@
                                 <div class="grid grid-cols-1 gap-5">
                                     ${valDurum ? `
                                       <div class="flex flex-col gap-1">
-                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Durum</span> 
-                                        <span class="text-xl font-black text-gray-900">${valDurum}</span>
+                                        <span class="font-bold text-[10px] text-gray-400 uppercase tracking-widest">Durum</span> 
+                                        <div class="flex items-center gap-2">
+                                          <span class="px-3 py-1 rounded-lg text-sm font-black shadow-sm border ${valDurum === 'YENİ' ? 'bg-green-500 text-white border-green-600' : 'bg-orange-500 text-white border-orange-600'}">
+                                            ${valDurum}
+                                          </span>
+                                        </div>
                                       </div>` : ''}
                                     
                                     ${valMarka ? `
@@ -3798,9 +4083,68 @@
     }
 
     function closeVehicleDetail(event) {
-      if (event) event.stopPropagation();
+      if (event && event.target !== event.currentTarget) return;
       document.getElementById('vehicleDetailModal').classList.add('hidden');
-      currentPhotoPlaka = null;
+    }
+
+    function showRecordDetail(backendId) {
+      const record = records.find(r => r.__backendId === backendId);
+      if (record) {
+        showVehicleDetail(record.plaka);
+      } else {
+        showToast('Kayıt bulunamadı', 'error');
+      }
+    }
+
+    // --- DELETE FUNCTIONALITY FIXED ---
+    function deleteVehicleToTrash(plaka, event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+
+      const isAdmin = (savedEmail === 'mustafa@akkoc');
+      if (!isAdmin) {
+        showToast('Bu işlem için yetkiniz yok!', 'error');
+        return;
+      }
+
+      if (confirm(`"${plaka}" plakalı aracı ve tüm geçmişini silmek istediğinize emin misiniz? Bu işlem geri alınamaz (Çöp Kutusuna taşınır).`)) {
+        // 1. İlgili kayıtları bul
+        const recordsToDelete = records.filter(r => r.plaka === plaka);
+
+        if (recordsToDelete.length === 0) {
+          showToast('Silinecek kayıt bulunamadı', 'error');
+          return;
+        }
+
+        // 2. Çöp kutusuna taşı (meta verilerle)
+        let trashData = [];
+        try {
+          trashData = JSON.parse(localStorage.getItem('deleted_vehicle_records') || '[]');
+        } catch (e) { trashData = []; }
+
+        const lastRecord = recordsToDelete.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+        lastRecord.deleted_at = new Date().toISOString();
+        lastRecord.deleted_by = savedEmail;
+
+        trashData.push(lastRecord);
+        localStorage.setItem('deleted_vehicle_records', JSON.stringify(trashData));
+
+        // 3. Ana listeden çıkar
+        const remainingRecords = records.filter(r => r.plaka !== plaka);
+        records = remainingRecords;
+        localStorage.setItem('vehicle_records', JSON.stringify(records));
+
+        // 4. Ekranda Güncelle
+        renderVehicles(records);
+        // Modalı kapat
+        document.getElementById('vehicleDetailModal').classList.add('hidden');
+
+        if (typeof forceSyncAll === 'function') forceSyncAll(); // Buluta bildir
+
+        showToast('Araç çöp kutusuna taşındı', 'success');
+      }
     }
 
     // --- ÇÖP KUTUSU İŞLEMLERİ ---
@@ -3885,7 +4229,7 @@
         const mainType = item.records[0] ? (item.records[0].arac_tipi === 'kamyon' ? '🚛 Kamyon' : '🚚 Çekici') : 'Araç';
 
         return `
-        < div class="record-card" style = "border-left: 5px solid #ef4444; opacity: 0.9;" >
+        <div class="record-card" style="border-left: 5px solid #ef4444; opacity: 0.9;">
           <div class="flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-4">
               <span style="font-size: 32px; filter: grayscale(100%);">🗑️</span>

@@ -2580,6 +2580,9 @@
         document.getElementById('sidebarEmail').textContent = email;
         updateMenuVisibility();
 
+        // Giriş sonrası anında bulut verilerini çek
+        if (typeof forceSyncAll === 'function') forceSyncAll();
+
         // Ana sayfaya yönlendir
         showSection('home');
 
@@ -2788,6 +2791,7 @@
         email: email,
         password: password,
         created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
         is_default: false,
         role: 'user',
         permissions: {
@@ -2915,6 +2919,7 @@
       }
 
       user.permissions[permissionKey] = value;
+      user.updated_at = new Date().toISOString();
 
       if (saveUsers(allUsers)) {
         showToast('✅ Yetki güncellendi', 'success');
@@ -3214,6 +3219,7 @@
         imza: signatureData,
         fotograflar: JSON.stringify([]),
         created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       };
 
       // 5. LASTİK BİLGİLERİNİ EKLEME
@@ -3495,6 +3501,7 @@
         const currentStatus = statuses[plaka] || 'active';
         statuses[plaka] = currentStatus === 'active' ? 'passive' : 'active';
         localStorage.setItem('vehicle_statuses', JSON.stringify(statuses));
+        localStorage.setItem('vehicle_statuses_updated', new Date().toISOString());
 
         showToast(`Araç durumu güncellendi: ${statuses[plaka] === 'active' ? 'Aktif' : 'Pasif'}`, 'success');
         renderVehicles(records);
@@ -3735,6 +3742,7 @@
 
             vehiclePhotos[currentPhotoPlaka].push(newPhoto);
             localStorage.setItem('vehicle_photos', JSON.stringify(vehiclePhotos));
+            localStorage.setItem('vehicle_photos_updated', new Date().toISOString());
 
             showToast('✅ Fotoğraf başarıyla eklendi!', 'success');
 
@@ -3777,6 +3785,7 @@
 
           // localStorage'a kaydet
           localStorage.setItem('vehicle_photos', JSON.stringify(vehiclePhotos));
+          localStorage.setItem('vehicle_photos_updated', new Date().toISOString());
 
           showToast('✅ Fotoğraf silindi', 'success');
 

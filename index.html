@@ -805,6 +805,15 @@
         <span>Ayarlar</span>
       </div>
     </div>
+    <button onclick="logout()"
+      class="w-full text-left p-3 mt-4 rounded-lg flex items-center gap-3 text-red-500 hover:bg-red-50 transition-colors">
+      <span>🚪</span> Çıkış Yap
+    </button>
+
+    <div id="cloudStatus" class="mt-4 text-center p-2 rounded-lg bg-gray-100 text-xs" title="Senkronizasyon Durumu">
+      <span class="text-gray-400">☁️ Bağlanıyor...</span>
+    </div>
+  </div>
   </div>
 
   <!-- Top Bar -->
@@ -1877,7 +1886,11 @@
         <button onclick="exportHistoryToPDF()" class="btn-primary flex items-center gap-2" style="background: #ef4444;">
           <span>📄</span> Geçmiş PDF
         </button>
+        <div id="cloudStatus" class="mt-4 text-center p-2 rounded-lg bg-gray-100 text-xs" title="Senkronizasyon Durumu">
+          <span class="text-gray-400">☁️...</span>
+        </div>
       </div>
+
       <div id="historyList">
         <p style="color: var(--text-secondary); text-align: center; padding: 40px">Henüz kayıt yok</p>
       </div>

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Akkoç Lojistik Dijital Sensörlü Lastik Formu</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/_sdk/data_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap"
     rel="stylesheet">
   <style>
@@ -673,12 +672,14 @@
       navigation: auto;
     }
   </style>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
   <!-- PWA ve Mobile Eklemeleri -->
   <link rel="manifest" href="./manifest.json">
   <link rel="stylesheet" href="./mobile.css">
   <meta name="theme-color" content="#0f172a">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/751/751688.png">
+  <link rel="icon" type="image/png"
+    href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuBuZbgz27YtowyonVoRRXxf7LluI6VRbZLw&s">
+  <link rel="apple-touch-icon"
+    href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuBuZbgz27YtowyonVoRRXxf7LluI6VRbZLw&s">
   <!-- Supabase SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -2117,6 +2118,7 @@
           canViewNotifications: true,
           canViewSettings: true,
           canCreateRecord: true,
+          canViewReports: true,
           canDeleteUsers: true,
           canManagePermissions: true
         }
@@ -2192,6 +2194,8 @@
         } else if (onclick && onclick.includes("'notifications')") && !currentUser.permissions.canViewNotifications) {
           item.style.display = 'none';
         } else if (onclick && onclick.includes("'settings')") && !currentUser.permissions.canViewSettings) {
+          item.style.display = 'none';
+        } else if (onclick && onclick.includes("'reports')") && !currentUser.permissions.canViewReports) {
           item.style.display = 'none';
         } else {
           item.style.display = 'flex';
@@ -2362,6 +2366,7 @@
           canViewNotifications: true,
           canViewSettings: true,
           canCreateRecord: true,
+          canViewReports: false,
           canDeleteUsers: false,
           canManagePermissions: false
         }
@@ -2446,6 +2451,10 @@
                   <div class="flex items-center gap-2">
                     <input type="checkbox" id="perm_${index}_settings" ${user.permissions.canViewSettings ? 'checked' : ''} onchange="updatePermission(${index}, 'canViewSettings', this.checked)" style="cursor: pointer;">
                     <label for="perm_${index}_settings" class="text-sm cursor-pointer">⚙️ Ayarlar</label>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <input type="checkbox" id="perm_${index}_reports" ${user.permissions.canViewReports ? 'checked' : ''} onchange="updatePermission(${index}, 'canViewReports', this.checked)" style="cursor: pointer;">
+                    <label for="perm_${index}_reports" class="text-sm cursor-pointer">📈 Raporlar</label>
                   </div>
                 </div>
               </div>
@@ -3314,48 +3323,69 @@
         } catch (e) { }
 
         return `
-          <div class="record-card ${isActive ? '' : 'opacity-75'}" style="border-left: 5px solid ${isActive ? '#10b981' : '#ef4444'}; position: relative;" onclick="showVehicleDetail('${plaka}')">
+          <div class="record-card ${isActive ? '' : 'opacity-75'}" style="border-left: 5px solid ${isActive ? '#10b981' : '#ef4444'}; position: relative; padding: 20px;" onclick="showVehicleDetail('${plaka}')">
             
-            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div class="flex items-center gap-4">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+              
+              <!-- ARAÇ ANA BİLGİ -->
+              <div class="flex items-center gap-4 min-w-[200px]">
                 <div class="relative">
-                    <span style="font-size: 40px">${aracTipi === 'kamyon' ? '🚛' : '🚚'}</span>
-                    <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${isActive ? 'bg-green-500' : 'bg-red-500'}"></span>
+                    <span style="font-size: 50px">${aracTipi === 'kamyon' ? '🚛' : '🚚'}</span>
+                    <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-4 border-white ${isActive ? 'bg-green-500' : 'bg-red-500'}"></span>
                 </div>
                 <div>
-                  <div class="flex items-center gap-2">
-                    <h3 class="font-bold text-xl">${plaka}</h3>
-                    <span class="text-xs px-2 py-0.5 rounded-full ${isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
-                        ${isActive ? 'Aktif' : 'Pasif'}
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="font-bold text-2xl uppercase tracking-tight" style="color: var(--text-primary)">${plaka}</h3>
+                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                        ${isActive ? 'AKTİF' : 'PASİF'}
                     </span>
                   </div>
-                    <div class="text-sm text-gray-500 mt-1">
-                    ${lastRecord.arac_tipi === 'kamyon' ? 'Kamyon' : 'Çekici + Dorse'} • Son Kayıt: <strong>${lastRecord.surucu_adi}</strong>
-                    ${isAdmin ? `<br><span class="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded mt-1 inline-block">👤 Kaydeden: ${lastRecord.user_email || 'Bilinmiyor'}</span>` : ''}
+                  <div class="text-sm font-semibold" style="color: var(--accent-blue)">
+                    ${lastRecord.arac_tipi === 'kamyon' ? 'KAMYON' : 'ÇEKİCİ + DORSE'}
                   </div>
                 </div>
               </div>
 
-              <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-                <div class="text-right text-sm text-gray-500">
-                    <div>📅 Son: ${lastDate}</div>
-                    <div>📋 ${recordCount} Kayıt</div>
-                    <div>📸 ${photoCount} Fotoğraf</div>
+              <!-- DETAYLAR IZGARASI -->
+              <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-4 px-2 lg:px-8 w-full">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 uppercase font-bold mb-1">Son Sürücü</span>
+                    <span class="font-bold text-sm truncate" style="color: var(--text-primary)">${lastRecord.surucu_adi}</span>
                 </div>
-                
-                <div class="flex items-center gap-2">
-                    ${isAdmin ? `
-                    <button onclick="deleteVehicleToTrash('${plaka}', event)" class="p-2 rounded-lg hover:bg-red-100 text-red-600" title="Aracı Sil (Çöp Kutusuna Taşı)">
-                        🗑️
-                    </button>
-                    ` : ''}
-                    <button onclick="toggleVehicleStatus('${plaka}', event)" class="p-2 rounded-lg hover:bg-gray-100 text-gray-600" title="${isActive ? 'Pasife Al' : 'Aktife Al'}">
-                        ${isActive ? '❌' : '✅'}
-                    </button>
-                    <div style="font-size: 24px; color: var(--accent-orange)">→</div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 uppercase font-bold mb-1">Son İşlem</span>
+                    <span class="font-bold text-sm" style="color: var(--text-primary)">${lastDate}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 uppercase font-bold mb-1">Toplam İşlem</span>
+                    <span class="font-bold text-sm" style="color: var(--text-primary)">${recordCount} Kayıt</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 uppercase font-bold mb-1">Fotoğraflar</span>
+                    <span class="font-bold text-sm" style="color: var(--text-primary)">${photoCount} Adet</span>
                 </div>
               </div>
+
+              <!-- AKSİYONLAR VE OK -->
+              <div class="flex items-center gap-3 w-full lg:w-auto justify-end border-t lg:border-t-0 pt-3 lg:pt-0" style="border-color: var(--border-color)">
+                ${isAdmin ? `
+                <button onclick="deleteVehicleToTrash('${plaka}', event)" class="p-2.5 rounded-lg hover:bg-red-50 text-red-600 border border-transparent hover:border-red-100 transition-all" title="Sil">
+                    🗑️
+                </button>
+                ` : ''}
+                <button onclick="toggleVehicleStatus('${plaka}', event)" class="p-2.5 rounded-lg hover:bg-gray-100 text-gray-400 border border-transparent hover:border-gray-200 transition-all" title="${isActive ? 'Pasife Al' : 'Aktife Al'}">
+                    ${isActive ? '❌' : '✅'}
+                </button>
+                <div class="text-2xl transition-transform group-hover:translate-x-1" style="color: var(--accent-orange)">→</div>
+              </div>
+
             </div>
+            
+            ${isAdmin ? `
+            <div class="mt-2 pt-2 border-t border-dashed text-[10px]" style="border-color: var(--border-color); color: var(--text-secondary)">
+              👤 Kaydeden: <span class="font-semibold">${lastRecord.user_email || 'Bilinmiyor'}</span>
+            </div>
+            ` : ''}
           </div>
         `;
       }).join('');
@@ -3536,21 +3566,21 @@
 
       // --- HTML OLUŞTURMA ---
       let html = `
-        <div class="mb-6">
-          <div class="flex items-center gap-4 mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-transparent">
-            <span style="font-size: 48px">${lastRecord.arac_tipi === 'kamyon' ? '🚛' : '🚚'}</span>
-            <div class="flex-1">
-              <div class="text-3xl font-bold text-gray-800">${plaka}</div>
-              <div class="text-sm font-medium text-blue-600">${lastRecord.arac_tipi === 'kamyon' ? 'KAMYON' : 'ÇEKİCİ + DORSE'}</div>
+          <div class="mb-6">
+            <div class="flex items-center gap-4 mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-transparent border-l-8 border-blue-500">
+              <span style="font-size: 56px">${lastRecord.arac_tipi === 'kamyon' ? '🚛' : '🚚'}</span>
+              <div class="flex-1">
+                <div class="text-4xl font-extrabold" style="color: var(--text-primary); letter-spacing: -1px;">${plaka}</div>
+                <div class="text-base font-bold uppercase tracking-wider" style="color: var(--accent-blue)">${lastRecord.arac_tipi === 'kamyon' ? 'KAMYON' : 'ÇEKİCİ + DORSE'}</div>
+              </div>
+              <div class="text-right bg-white/50 p-3 rounded-xl border border-blue-100 shadow-sm">
+                <div class="text-3xl font-black" style="color: var(--accent-orange)">${vehicleRecords.length}</div>
+                <div class="text-[10px] font-extrabold uppercase text-gray-500">Toplam Kayıt</div>
+              </div>
             </div>
-            <div class="text-right">
-                <div class="text-2xl font-bold text-orange-500">${vehicleRecords.length}</div>
-                <div class="text-xs text-gray-500">Toplam İşlem</div>
-            </div>
-          </div>
         </div>
         
-        <!-- Fotoğraf Bölümü -->
+        < !--Fotoğraf Bölümü-- >
         <div class="form-card photo-section mb-6">
           <div class="flex justify-between items-center mb-4">
             <h3 class="font-semibold text-lg" style="color: var(--accent-orange)">📸 Araç Fotoğrafları (${allPhotos.length})</h3>
@@ -3572,10 +3602,10 @@
           ` : '<div class="text-center py-4 text-gray-400 text-sm">Henüz fotoğraf yok.</div>'}
         </div>
 
-        <!-- Geçmiş Kayıtlar Listesi -->
-        <div class="space-y-6">
+        <!--Geçmiş Kayıtlar Listesi-- >
+          <div class="space-y-6">
             <h3 class="font-bold text-xl px-2 border-l-4 border-blue-500">📋 Geçmiş İşlem Kayıtları</h3>
-            
+
             ${sortedRecords.map((record, index) => {
         const date = new Date(record.created_at).toLocaleDateString('tr-TR');
         const time = new Date(record.created_at).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
@@ -3603,38 +3633,76 @@
         let gridItems = '';
 
         positions.forEach(pos => {
-          // Bu pozisyonda herhangi bir veri girişi var mı kontrol et
           const valDurum = record[pos + '_durum'];
           const valMarka = record[pos + '_marka'];
           const valSensor = record[pos + '_sensor'];
           const valEbat = record[pos + '_ebat'];
           const valSeri = record[pos + '_seri'];
+          const valKM = record[pos + '_km'];
+          const valTarih = record[pos + '_tarih'];
 
-          const hasData = (valDurum || (valMarka && valMarka.trim()) || (valSensor && valSensor.trim()) || (valEbat && valEbat.trim()) || (valSeri && valSeri.trim()));
+          const hasData = (valDurum || (valMarka && valMarka.trim()) || (valSensor && valSensor.trim()) || (valEbat && valEbat.trim()) || (valSeri && valSeri.trim()) || valKM || valTarih);
 
           if (hasData) {
             tireChanges++;
             if (valSensor && valSensor.trim()) sensorCount++;
 
-            // Pozisyon ismini güzelleştir
             let posName = pos.replace('kamyon_', '').replace('cekici_', '').replace('dorse_', '').replace(/_/g, ' ').toUpperCase();
-
-            // Kamyon/Çekici/Dorse prefixi
             let typeIcon = '🚚';
             if (pos.startsWith('kamyon')) typeIcon = '🚛';
             if (pos.startsWith('dorse')) { typeIcon = '🛒'; posName = 'DORSE ' + posName; }
 
             gridItems += `
-                            <div class="p-3 bg-white rounded-lg border border-gray-200 shadow-sm text-sm">
-                                <div class="font-bold text-gray-700 mb-2 border-b pb-1 flex items-center gap-2">
-                                    <span>${typeIcon}</span> ${posName}
+                            <div class="p-6 bg-white rounded-2xl border-2 border-gray-100 shadow-sm transition-all hover:border-blue-400 hover:shadow-xl group">
+                                <div class="font-black text-xl mb-6 flex items-center gap-3 text-blue-700" style="letter-spacing: -0.5px">
+                                    <span class="text-2xl">◀️</span> 
+                                    <span class="uppercase">${posName}</span>
                                 </div>
-                                <div class="space-y-1">
-                                    ${valDurum ? `<div><span class="text-gray-500">Durum:</span> <strong>${valDurum}</strong></div>` : ''}
-                                    ${valMarka ? `<div><span class="text-gray-500">Marka:</span> ${valMarka}</div>` : ''}
-                                    ${valSensor ? `<div class="bg-blue-50 p-1 rounded text-blue-700 font-medium">📡 Sensör: ${valSensor}</div>` : ''}
-                                    ${valEbat ? `<div><span class="text-gray-500">Ebat:</span> ${valEbat}</div>` : ''}
-                                    ${valSeri ? `<div><span class="text-gray-500">Seri:</span> ${valSeri}</div>` : ''}
+                                <div class="grid grid-cols-1 gap-5">
+                                    ${valDurum ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Durum</span> 
+                                        <span class="text-xl font-black text-gray-900">${valDurum}</span>
+                                      </div>` : ''}
+                                    
+                                    ${valMarka ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Marka</span> 
+                                        <span class="text-xl font-black text-gray-900">${valMarka}</span>
+                                      </div>` : ''}
+
+                                    ${valKM ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">KM</span> 
+                                        <span class="text-xl font-black text-gray-900">${Number(valKM).toLocaleString()} KM</span>
+                                      </div>` : ''}
+
+                                    ${valTarih ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Takılma Tarihi</span> 
+                                        <span class="text-xl font-black text-gray-900">${new Date(valTarih).toLocaleDateString('tr-TR')}</span>
+                                      </div>` : ''}
+
+                                    ${valEbat ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Ebat</span> 
+                                        <span class="text-xl font-black text-gray-900">${valEbat}</span>
+                                      </div>` : ''}
+
+                                    ${valSeri ? `
+                                      <div class="flex flex-col gap-1">
+                                        <span class="font-bold text-xs text-gray-400 uppercase tracking-widest">Seri No</span> 
+                                        <span class="text-xl font-black text-gray-900">${valSeri}</span>
+                                      </div>` : ''}
+
+                                    ${valSensor ? `
+                                      <div class="flex flex-col gap-2 p-4 bg-blue-600 rounded-2xl shadow-lg shadow-blue-200 mt-2">
+                                        <span class="font-bold text-[10px] text-blue-100 uppercase tracking-[0.2em]">Sensör</span> 
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-2xl">📡</span>
+                                            <span class="text-lg font-black text-white">${valSensor}</span>
+                                        </div>
+                                      </div>` : ''}
                                 </div>
                             </div>
                         `;
@@ -3642,47 +3710,56 @@
         });
 
         if (gridItems === '') {
-          gridItems = '<div class="col-span-full text-center text-gray-400 py-4">Bu kayıtta lastik detayı girilmemiş (Sadece form kaydedilmiş)</div>';
+          gridItems = '<div class="col-span-full text-center text-gray-500 py-10 font-bold italic text-lg">Bu kayıtta lastik detayı girilmemiş.</div>';
         }
 
         return `
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="bg-gray-50 p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cursor-pointer hover:bg-gray-100 transition" 
+                    <div class="bg-white rounded-3xl shadow-sm border-2 border-gray-100 overflow-hidden mb-6 transition-all hover:border-gray-300">
+                        <div class="bg-gradient-to-r from-gray-50 to-white p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 cursor-pointer" 
                              onclick="toggleRecordDetails(this)">
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-lg text-gray-800">${record.surucu_adi}</span>
-                                    <span class="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">${date} ${time}</span>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="font-black text-2xl" style="color: var(--text-primary)">${record.surucu_adi}</span>
+                                    <span class="text-xs font-black uppercase tracking-widest bg-orange-100 text-orange-700 px-4 py-1.5 rounded-full border border-orange-200 shadow-sm">${date} - ${time}</span>
                                 </div>
-                                ${isAdmin ? `<div class="text-xs text-blue-600 mt-1">👤 Kaydeden: ${record.user_email || 'Bilinmiyor'}</div>` : ''}
-                                <div class="text-sm text-gray-500 mt-1">
-                                    ${tireChanges > 0 ? `<span class="text-green-600 font-medium">${tireChanges} Lastik İşlemi</span>` : 'İşlem yok'} • 
-                                    ${sensorCount > 0 ? `<span class="text-blue-600 font-medium">📡 ${sensorCount} Sensör Takıldı</span>` : 'Sensör yok'}
+                                ${isAdmin ? `<div class="text-xs font-black text-blue-600 uppercase tracking-tight mb-3 flex items-center gap-1">👤 <span class="opacity-70">KAYDEDEN:</span> ${record.user_email || '-'}</div>` : ''}
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center gap-2 px-4 py-1.5 bg-green-50 rounded-xl border-2 border-green-100">
+                                      <span class="text-green-700 font-black text-sm">${tireChanges}</span>
+                                      <span class="text-xs font-black text-green-800 uppercase tracking-tighter">İŞLEM</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 px-4 py-1.5 bg-blue-50 rounded-xl border-2 border-blue-100">
+                                      <span class="text-blue-700 font-black text-sm">${sensorCount}</span>
+                                      <span class="text-xs font-black text-blue-800 uppercase tracking-tighter">SENSÖR</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <div class="font-bold text-orange-500 text-lg">${record.toplam_fiyat || 0} ₺</div>
-                                <div class="text-xs text-gray-400">Toplam Tutar</div>
+                            <div class="text-right flex flex-col items-end">
+                                <div class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1 opacity-80">TOPLAM TUTAR</div>
+                                <div class="font-black text-3xl" style="color: var(--accent-orange); letter-spacing: -1px;">${Number(record.toplam_fiyat || 0).toLocaleString()} ₺</div>
                             </div>
                         </div>
                         
                         <!-- Detay İçeriği (Akordeon) -->
-                        <div class="details-content ${isExpanded ? '' : 'hidden'} border-t border-gray-100">
-                            <div class="p-4 bg-gray-50/50">
+                        <div class="details-content ${isExpanded ? '' : 'hidden'} border-t-2 border-gray-100">
+                            <div class="p-8 bg-gray-50/40">
                                 ${record.notlar ? `
-                                    <div class="mb-4 p-3 bg-yellow-50 border border-yellow-100 rounded-lg text-sm text-yellow-800">
-                                        <strong>📝 Notlar:</strong> ${record.notlar}
+                                    <div class="mb-8 p-5 bg-yellow-50 border-l-8 border-yellow-400 rounded-r-2xl text-base shadow-sm">
+                                        <div class="text-xs font-black text-yellow-700 uppercase tracking-widest mb-2">📝 KAYIT NOTLARI</div>
+                                        <div class="text-gray-900 font-bold leading-relaxed italic">"${record.notlar}"</div>
                                     </div>
                                 ` : ''}
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     ${gridItems}
                                 </div>
 
                                 ${record.imza ? `
-                                    <div class="mt-4 pt-4 border-t border-gray-200">
-                                        <div class="text-xs text-gray-500 mb-2">Sürücü İmzası:</div>
-                                        <img src="${record.imza}" style="max-height: 60px; opacity: 0.7;">
+                                    <div class="mt-10 pt-8 border-t-2 border-dashed border-gray-200 flex flex-col items-center sm:items-start">
+                                        <div class="text-xs font-black text-gray-500 uppercase tracking-widest mb-4">🖊️ SÜRÜCÜ ONAY İMZASI</div>
+                                        <div class="bg-white p-4 rounded-2xl border-2 border-gray-200 shadow-md">
+                                          <img src="${record.imza}" class="max-h-[120px] object-contain mix-blend-multiply opacity-90" style="filter: contrast(1.3) brightness(0.9);">
+                                        </div>
                                     </div>
                                 ` : ''}
                             </div>
@@ -3690,8 +3767,8 @@
                     </div>
                 `;
       }).join('')}
-        </div>
-      `;
+          </div>
+        `;
 
       content.innerHTML = html;
       modal.classList.remove('hidden');
@@ -3727,7 +3804,7 @@
     function deleteVehicleToTrash(plaka, event) {
       if (event) event.stopPropagation();
 
-      if (!confirm(`${plaka} plakalı aracı ve tüm geçmişini silmek istediğinize emin misiniz? (Çöp kutusundan geri yüklenebilir)`)) {
+      if (!confirm(`${plaka} plakalı aracı ve tüm geçmişini silmek istediğinize emin misiniz ? (Çöp kutusundan geri yüklenebilir)`)) {
         return;
       }
 
@@ -3791,20 +3868,20 @@
         const mainType = item.records[0] ? (item.records[0].arac_tipi === 'kamyon' ? '🚛 Kamyon' : '🚚 Çekici') : 'Araç';
 
         return `
-          <div class="record-card" style="border-left: 5px solid #ef4444; opacity: 0.9;">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div class="flex items-center gap-4">
-                <span style="font-size: 32px; filter: grayscale(100%);">🗑️</span>
-                <div>
-                  <h3 class="font-bold text-lg text-gray-700">${item.plaka} <span class="text-xs font-normal text-red-500">(${mainType})</span></h3>
-                  <div class="text-sm text-gray-500">
-                    Silinme: ${delDate}<br>
+        < div class="record-card" style = "border-left: 5px solid #ef4444; opacity: 0.9;" >
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <span style="font-size: 32px; filter: grayscale(100%);">🗑️</span>
+              <div>
+                <h3 class="font-bold text-lg text-gray-700">${item.plaka} <span class="text-xs font-normal text-red-500">(${mainType})</span></h3>
+                <div class="text-sm text-gray-500">
+                  Silinme: ${delDate}<br>
                     Silen: ${item.deleted_by || 'Bilinmiyor'}<br>
-                    ${recordCount} Kayıt
-                  </div>
+                      ${recordCount} Kayıt
+                    </div>
                 </div>
               </div>
-              
+
               <div class="flex gap-2">
                 <button onclick="restoreVehicle(${index})" class="btn-primary" style="padding: 8px 16px; background: #10b981; font-size: 13px;">
                   ♻️ Geri Yükle

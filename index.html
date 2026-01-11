@@ -3298,6 +3298,8 @@
         localStorage.setItem('vehicle_records', JSON.stringify(existingRecords));
 
         records = existingRecords;
+
+        if (typeof forceSyncAll === 'function') forceSyncAll(); // Anında senkronizasyon
         currentRecordCount = existingRecords.length;
         renderHistory(existingRecords);
         renderVehicles(existingRecords);
@@ -3526,6 +3528,7 @@
 
         showToast(`Araç durumu güncellendi: ${statuses[plaka] === 'active' ? 'Aktif' : 'Pasif'}`, 'success');
         renderVehicles(records);
+        if (typeof forceSyncAll === 'function') forceSyncAll(); // Anında senkronizasyon
       } catch (e) {
         showToast('Durum güncellenemedi', 'error');
       }
@@ -4123,55 +4126,7 @@
     }
 
     // --- DELETE FUNCTIONALITY FIXED ---
-    function deleteVehicleToTrash(plaka, event) {
-      if (event) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
 
-      const isAdmin = (savedEmail === 'mustafa@akkoc');
-      if (!isAdmin) {
-        showToast('Bu işlem için yetkiniz yok!', 'error');
-        return;
-      }
-
-      if (confirm(`"${plaka}" plakalı aracı ve tüm geçmişini silmek istediğinize emin misiniz? Bu işlem geri alınamaz (Çöp Kutusuna taşınır).`)) {
-        // 1. İlgili kayıtları bul
-        const recordsToDelete = records.filter(r => r.plaka === plaka);
-
-        if (recordsToDelete.length === 0) {
-          showToast('Silinecek kayıt bulunamadı', 'error');
-          return;
-        }
-
-        // 2. Çöp kutusuna taşı (meta verilerle)
-        let trashData = [];
-        try {
-          trashData = JSON.parse(localStorage.getItem('deleted_vehicle_records') || '[]');
-        } catch (e) { trashData = []; }
-
-        const lastRecord = recordsToDelete.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
-        lastRecord.deleted_at = new Date().toISOString();
-        lastRecord.deleted_by = savedEmail;
-
-        trashData.push(lastRecord);
-        localStorage.setItem('deleted_vehicle_records', JSON.stringify(trashData));
-
-        // 3. Ana listeden çıkar
-        const remainingRecords = records.filter(r => r.plaka !== plaka);
-        records = remainingRecords;
-        localStorage.setItem('vehicle_records', JSON.stringify(records));
-
-        // 4. Ekranda Güncelle
-        renderVehicles(records);
-        // Modalı kapat
-        document.getElementById('vehicleDetailModal').classList.add('hidden');
-
-        if (typeof forceSyncAll === 'function') forceSyncAll(); // Buluta bildir
-
-        showToast('Araç çöp kutusuna taşındı', 'success');
-      }
-    }
 
     // --- ÇÖP KUTUSU İŞLEMLERİ ---
 
@@ -4222,6 +4177,9 @@
       // UI güncelle
       renderVehicles(records);
       renderHistory(records);
+
+      if (typeof forceSyncAll === 'function') forceSyncAll(); // Anında senkronizasyon
+
       showToast('🗑️ Araç çöp kutusuna taşındı', 'success');
     }
 
@@ -4302,6 +4260,9 @@
 
       renderTrash();
       renderVehicles(records); // Arka planda güncelle
+
+      if (typeof forceSyncAll === 'function') forceSyncAll(); // Anında senkronizasyon
+
       showToast('♻️ Araç ve kayıtları geri yüklendi', 'success');
     }
 
@@ -4316,6 +4277,9 @@
       saveDeletedRecords(deletedData);
 
       renderTrash();
+
+      if (typeof forceSyncAll === 'function') forceSyncAll(); // Anında senkronizasyon
+
       showToast('Araç kalıcı olarak silindi', 'success');
     }
 

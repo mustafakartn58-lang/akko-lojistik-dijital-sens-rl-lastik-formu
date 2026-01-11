@@ -805,14 +805,9 @@
         <span>Ayarlar</span>
       </div>
     </div>
-    <button onclick="logout()"
-      class="w-full text-left p-3 mt-4 rounded-lg flex items-center gap-3 text-red-500 hover:bg-red-50 transition-colors">
-      <span>🚪</span> Çıkış Yap
-    </button>
 
-    <div id="cloudStatus" class="mt-4 text-center p-2 rounded-lg bg-gray-100 text-xs" title="Senkronizasyon Durumu">
-      <span class="text-gray-400">☁️ Bağlanıyor...</span>
-    </div>
+
+
   </div>
   </div>
 
@@ -2224,7 +2219,7 @@
     function exportVehiclesToExcel() {
       const isAdmin = (savedEmail === 'mustafa@akkoc');
       let authorizedData = records;
-      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
+      // if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
 
       const uniquePlakas = [...new Set(authorizedData.map(r => r.plaka).filter(p => p))];
       if (uniquePlakas.length === 0) { showToast('Dışa aktarılacak araç yok', 'error'); return; }
@@ -2252,7 +2247,6 @@
 
       const isAdmin = (savedEmail === 'mustafa@akkoc');
       let authorizedData = records;
-      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
       const uniquePlakas = [...new Set(authorizedData.map(r => r.plaka).filter(p => p))];
 
       doc.setFontSize(18);
@@ -2398,7 +2392,6 @@
     function exportHistoryToExcel() {
       const isAdmin = (savedEmail === 'mustafa@akkoc');
       let authorizedData = records;
-      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
 
       if (authorizedData.length === 0) { showToast('Dışa aktarılacak geçmiş kayıt yok', 'error'); return; }
 
@@ -2425,7 +2418,6 @@
 
       const isAdmin = (savedEmail === 'mustafa@akkoc');
       let authorizedData = records;
-      if (!isAdmin) authorizedData = records.filter(r => r.user_email === savedEmail);
 
       doc.setFontSize(18);
       doc.text("Akkoç Lojistik - Geçmiş İşlem Kayıtları", 14, 20);
@@ -2591,6 +2583,7 @@
         }
 
         document.getElementById('sidebarEmail').textContent = email;
+        loadProfile(); // Profil bilgilerini anında güncelle
         updateMenuVisibility();
 
         // Giriş sonrası anında bulut verilerini çek
@@ -2767,6 +2760,7 @@
       if (targetSection) {
         targetSection.classList.add('active');
         targetSection.style.display = 'block';
+        loadProfile();
       }
 
       if (sectionName === 'users') {
@@ -3006,17 +3000,31 @@
     }
 
     function loadProfile() {
-      if (userProfile.email) {
-        document.getElementById('profileEmail').value = userProfile.email;
-        document.getElementById('sidebarEmail').textContent = userProfile.email;
-      } else if (savedEmail) {
-        document.getElementById('profileEmail').value = savedEmail;
-        document.getElementById('sidebarEmail').textContent = savedEmail;
+      // 1. Sidebar'daki metni al (En güncel görünen veri)
+      const sidebarEl = document.getElementById('sidebarEmail');
+      const profileEl = document.getElementById('profileEmail');
+
+      let currentEmail = savedEmail; // Varsayılan
+
+      if (sidebarEl && sidebarEl.textContent.trim().includes('@')) {
+        currentEmail = sidebarEl.textContent.trim();
+      }
+
+      // 2. Her iki alanı da bu veriyle eşitle
+      if (currentEmail) {
+        if (profileEl) profileEl.value = currentEmail;
+        if (sidebarEl) sidebarEl.textContent = currentEmail;
+      } else if (userProfile.email) {
+        if (profileEl) profileEl.value = userProfile.email;
+        if (sidebarEl) sidebarEl.textContent = userProfile.email;
       }
 
       const logoUrl = appLogo || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuBuZbgz27YtowyonVoRRXxf7LluI6VRbZLw&s';
-      document.getElementById('profileAvatar').src = logoUrl;
-      document.getElementById('sidebarAvatar').src = logoUrl;
+      const pAvatar = document.getElementById('profileAvatar');
+      const sAvatar = document.getElementById('sidebarAvatar');
+
+      if (pAvatar) pAvatar.src = logoUrl;
+      if (sAvatar) sAvatar.src = logoUrl;
     }
 
     // Bildirimler
@@ -3441,8 +3449,8 @@
       let filteredData = data;
 
       if (!isAdmin) {
-        // Admin değilse sadece kendi kayıtlarını görsün
-        filteredData = data.filter(r => r.user_email === savedEmail);
+        // Admin değilse bile herkes görebilsin (Kullanıcı talebi)
+        filteredData = data;
       }
 
       if (filteredData.length === 0) {
@@ -3533,13 +3541,8 @@
       const isAdmin = (savedEmail === 'mustafa@akkoc');
       let authorizedData = data;
 
-      if (!isAdmin) {
-        // Admin değilse, sadece kendi oluşturduğu kayıtları içeren araçları görsün
-        // Eğer bir aracın birden fazla kaydı varsa ve bunlardan EN AZ BİRİ bu kullanıcıya aitse aracı görsün mü?
-        // Yoksa sadece kendi oluşturduğu kayıtları mı baz alsın?
-        // Basitlik için: Kullanıcı sadece kendi oluşturduğu kayıtları görebilir. 
-        authorizedData = data.filter(r => r.user_email === savedEmail);
-      }
+      // Admin değilse bile diğer araçları görebilmeli, sadece silme yetkisi kısıtlı kalır
+      authorizedData = data;
 
       const uniquePlakas = [...new Set(authorizedData.map(r => r.plaka).filter(p => p))];
 
@@ -3831,7 +3834,8 @@
       let vehicleRecords = records.filter(r => r.plaka === plaka);
 
       if (!isAdmin) {
-        vehicleRecords = vehicleRecords.filter(r => r.user_email === savedEmail);
+        // vehicleRecords = vehicleRecords.filter(r => r.user_email === savedEmail);
+        // Tüm kayıtlar görünsün
       }
 
       if (vehicleRecords.length === 0) {
@@ -4046,7 +4050,7 @@
                                     <span class="font-black text-2xl" style="color: var(--text-primary)">${record.surucu_adi}</span>
                                     <span class="text-xs font-black uppercase tracking-widest bg-orange-100 text-orange-700 px-4 py-1.5 rounded-full border border-orange-200 shadow-sm">${date} - ${time}</span>
                                 </div>
-                                ${isAdmin ? `<div class="text-xs font-black text-blue-600 uppercase tracking-tight mb-3 flex items-center gap-1">👤 <span class="opacity-70">KAYDEDEN:</span> ${record.user_email || '-'}</div>` : ''}
+                                 <div class="text-xs font-black text-blue-600 uppercase tracking-tight mb-3 flex items-center gap-1">👤 <span class="opacity-70">KAYDEDEN:</span> ${record.user_email || 'Bilinmiyor'}</div>
                                 <div class="flex items-center gap-4">
                                     <div class="flex items-center gap-2 px-4 py-1.5 bg-green-50 rounded-xl border-2 border-green-100">
                                       <span class="text-green-700 font-black text-sm">${tireChanges}</span>
